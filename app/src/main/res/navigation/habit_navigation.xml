@@ -11,7 +11,7 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_dashboardFragment"
+            android:id="@+id/actionLoginDashboardFragment"
             app:destination="@id/dashboardFragment"
             app:popUpTo="@id/loginFragment" />
     </fragment>
@@ -21,12 +21,16 @@
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" >
         <action
-            android:id="@+id/action_dashboardFragment_to_createHabitFragment"
+            android:id="@+id/actionDashboardCreateHabitFragment"
             app:destination="@id/createHabitFragment" />
     </fragment>
     <fragment
         android:id="@+id/createHabitFragment"
         android:name="com.ubaya.habittrackerleonida.view.CreateHabitFragment"
         android:label="fragment_create_habit"
-        tools:layout="@layout/fragment_create_habit" />
+        tools:layout="@layout/fragment_create_habit" >
+        <action
+            android:id="@+id/actionCreateHabitDashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
 </navigation>

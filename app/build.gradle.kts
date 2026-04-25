@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.ubaya.habittrackerleonida"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.ubaya.habittrackerleonida"
