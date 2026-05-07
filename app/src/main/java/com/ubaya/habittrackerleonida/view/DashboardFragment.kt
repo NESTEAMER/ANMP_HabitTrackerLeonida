@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ubaya.habittrackerleonida.R
 import com.ubaya.habittrackerleonida.viewmodel.HabitViewModel
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class DashboardFragment : Fragment() {
 
@@ -27,21 +29,27 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView =
-            view.findViewById<RecyclerView>(R.id.recyclerHabit)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerHabit)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        recyclerView.layoutManager =
-            LinearLayoutManager(requireContext())
+        viewModel = ViewModelProvider(this)[HabitViewModel::class.java]
 
-        viewModel =
-            ViewModelProvider(this)[HabitViewModel::class.java]
-
-        viewModel.loadDummyData()
+        if (viewModel.habitListLD.value == null) {
+            viewModel.loadDummyData()
+        }
 
         viewModel.habitListLD.observe(viewLifecycleOwner) {
 
             val adapter = HabitAdapter(it)
             recyclerView.adapter = adapter
+        }
+
+        val fabAdd = view.findViewById<FloatingActionButton>(R.id.fabAdd)
+
+        fabAdd.setOnClickListener {
+            findNavController().navigate(
+                R.id.actionDashboardCreateHabitFragment
+            )
         }
     }
 }

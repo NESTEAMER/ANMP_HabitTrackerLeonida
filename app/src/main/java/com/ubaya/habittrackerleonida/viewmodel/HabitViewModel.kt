@@ -9,6 +9,7 @@ class HabitViewModel : ViewModel() {
     val habitListLD = MutableLiveData<ArrayList<Habit>>()
 
     fun loadDummyData() {
+
         val list = arrayListOf(
             Habit(
                 "1",
@@ -53,5 +54,12 @@ class HabitViewModel : ViewModel() {
 
         habitListLD.value = list
 
+    }
+    fun addHabit(habit: Habit) {
+
+        val currentList = habitListLD.value ?: arrayListOf()
+        currentList.add(habit)
+
+        habitListLD.value = currentList
     }
 }

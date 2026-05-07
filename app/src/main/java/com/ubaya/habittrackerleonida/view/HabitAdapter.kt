@@ -10,9 +10,10 @@ import com.ubaya.habittrackerleonida.model.Habit
 import android.widget.ProgressBar
 import android.widget.Button
 
-class HabitAdapter(private val habitList: ArrayList<Habit>) : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
+class HabitAdapter(private val habitList: ArrayList<Habit>)
+    : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
 
-    class HabitViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class HabitViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         val txtName: TextView = itemView.findViewById(R.id.txtName)
         val txtDesc: TextView = itemView.findViewById(R.id.textView2)
@@ -24,7 +25,8 @@ class HabitAdapter(private val habitList: ArrayList<Habit>) : RecyclerView.Adapt
         val btnMinus: Button = itemView.findViewById(R.id.btnMinus)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup,
+        viewType: Int): HabitViewHolder {
 
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_habit, parent, false)
@@ -39,36 +41,40 @@ class HabitAdapter(private val habitList: ArrayList<Habit>) : RecyclerView.Adapt
         holder.txtName.text = habit.name
         holder.txtDesc.text = habit.description
 
-        holder.txtProgress.text =
-            "${habit.currentProgress} / ${habit.goal} ${habit.unit}"
+        holder.txtProgress.text =  "${habit.currentProgress} / ${habit.goal} ${habit.unit}"
 
         holder.progressBar.max = habit.goal
         holder.progressBar.progress = habit.currentProgress
 
+        //status
         if (habit.currentProgress >= habit.goal) {
             holder.txtStatus.text = "Completed"
+            holder.btnPlus.isEnabled = false
         } else {
             holder.txtStatus.text = "In Progress"
+            holder.btnPlus.isEnabled = true
         }
 
-        holder.btnPlus.setOnClickListener {
 
+        //btn plus
+        holder.btnPlus.setOnClickListener {
             if (habit.currentProgress < habit.goal) {
                 habit.currentProgress++
-
                 notifyItemChanged(position)
             }
         }
 
-        holder.btnMinus.setOnClickListener {
 
+        //btn min
+        holder.btnMinus.setOnClickListener {
             if (habit.currentProgress > 0) {
                 habit.currentProgress--
-
                 notifyItemChanged(position)
             }
         }
     }
 
-    override fun getItemCount(): Int = habitList.size
+    override fun getItemCount(): Int {
+        return habitList.size
+    }
 }
