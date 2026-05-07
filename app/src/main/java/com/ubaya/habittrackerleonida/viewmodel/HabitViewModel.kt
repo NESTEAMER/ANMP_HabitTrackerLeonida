@@ -3,6 +3,7 @@ package com.ubaya.habittrackerleonida.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ubaya.habittrackerleonida.model.Habit
+import com.ubaya.habittrackerleonida.model.FileHelper
 
 class HabitViewModel : ViewModel() {
 
@@ -10,56 +11,56 @@ class HabitViewModel : ViewModel() {
 
     fun loadDummyData() {
 
-        val list = arrayListOf(
-            Habit(
-                "1",
-                "Olahraga",
-                "Latihan pagi",
-                8,
-                "times",
-                "fitness",
-                3
-            ),
+        if (FileHelper.habitList.isEmpty()) {
+            val list = arrayListOf(
+                Habit(
+                    "1",
+                    "Olahraga",
+                    "Latihan pagi",
+                    8,
+                    "times",
+                    "fitness",
+                    3
+                ),
 
-            Habit(
-                "2",
-                "Belajar",
-                "Belajar ANMP",
-                5,
-                "hours",
-                "book",
-                3
-            ),
+                Habit(
+                    "2",
+                    "Belajar",
+                    "Belajar ANMP",
+                    5,
+                    "hours",
+                    "book",
+                    3
+                ),
 
-            Habit(
-                "3",
-                "Minum Air",
-                "Minum cukup",
-                8,
-                "glasses",
-                "water",
-                3
-            ),
+                Habit(
+                    "3",
+                    "Minum Air",
+                    "Minum cukup",
+                    8,
+                    "glasses",
+                    "water",
+                    3
+                ),
 
-            Habit(
-                "4",
-                "Baca Buku",
-                "Baca 10 halaman",
-                10,
-                "pages",
-                "book",
-                3
+                Habit(
+                    "4",
+                    "Baca Buku",
+                    "Baca 10 halaman",
+                    10,
+                    "pages",
+                    "book",
+                    3
+                )
             )
-        )
-
-        habitListLD.value = list
-
+            FileHelper.habitList.addAll(list)
+        }
+        habitListLD.value = FileHelper.habitList
     }
     fun addHabit(habit: Habit) {
 
-        val currentList = habitListLD.value ?: arrayListOf()
-        currentList.add(habit)
+        FileHelper.habitList.add(habit)
 
-        habitListLD.value = currentList
+        habitListLD.value = FileHelper.habitList
     }
 }

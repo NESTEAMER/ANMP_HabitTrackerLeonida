@@ -32,11 +32,10 @@ class DashboardFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerHabit)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel = ViewModelProvider(this)[HabitViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[HabitViewModel::class.java]
 
-        if (viewModel.habitListLD.value == null) {
-            viewModel.loadDummyData()
-        }
+        viewModel.loadDummyData()
+
 
         viewModel.habitListLD.observe(viewLifecycleOwner) {
 

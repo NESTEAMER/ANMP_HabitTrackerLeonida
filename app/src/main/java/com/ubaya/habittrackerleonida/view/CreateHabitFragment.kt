@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import com.ubaya.habittrackerleonida.R
 import android.widget.Button
 import android.widget.EditText
@@ -32,6 +34,11 @@ class CreateHabitFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val icons = arrayOf("fitness", "book", "water")
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, icons)
+        val dropdown = view.findViewById<AutoCompleteTextView>(R.id.dropdownIcon)
+        dropdown.setAdapter(adapter)
+
         viewModel = ViewModelProvider(requireActivity())[HabitViewModel::class.java]
 
         val btnCreate = view.findViewById<Button>(R.id.btnCreate)
@@ -47,6 +54,7 @@ class CreateHabitFragment : Fragment() {
             val goal =
                 if (goalText.isEmpty()) 1 else goalText.toInt()
             val unit = view.findViewById<EditText>(R.id.txtUnit).text.toString()
+            val selectedIcon = dropdown.text.toString()
 
             val habit = Habit(
                 id = System.currentTimeMillis().toString(),
@@ -54,7 +62,7 @@ class CreateHabitFragment : Fragment() {
                 description = desc,
                 goal = goal,
                 unit = unit,
-                iconName = "default",
+                iconName = selectedIcon,
                 currentProgress = 0
             )
 

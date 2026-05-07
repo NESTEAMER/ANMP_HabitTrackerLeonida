@@ -9,6 +9,7 @@ import com.ubaya.habittrackerleonida.R
 import com.ubaya.habittrackerleonida.model.Habit
 import android.widget.ProgressBar
 import android.widget.Button
+import android.widget.ImageView
 
 class HabitAdapter(private val habitList: ArrayList<Habit>)
     : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
@@ -23,6 +24,7 @@ class HabitAdapter(private val habitList: ArrayList<Habit>)
 
         val btnPlus: Button = itemView.findViewById(R.id.btnPlus)
         val btnMinus: Button = itemView.findViewById(R.id.btnMinus)
+        val imgIcon: ImageView = itemView.findViewById(R.id.imgIcon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup,
@@ -45,6 +47,12 @@ class HabitAdapter(private val habitList: ArrayList<Habit>)
 
         holder.progressBar.max = habit.goal
         holder.progressBar.progress = habit.currentProgress
+
+        //icon fix thingy
+        val context = holder.itemView.context
+        val resourceId = context.resources.getIdentifier(habit.iconName, "drawable", context.packageName)
+        holder.imgIcon.setImageResource(resourceId)
+
 
         //status
         if (habit.currentProgress >= habit.goal) {
