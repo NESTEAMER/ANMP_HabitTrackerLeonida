@@ -1,5 +1,5 @@
 [versions]
-agp = "8.13.2"
+agp = "8.9.1"
 gson = "2.10.1"
 kotlin = "2.0.21"
 coreKtx = "1.13.1"
@@ -10,14 +10,27 @@ appcompat = "1.7.1"
 material = "1.13.0"
 activity = "1.9.0"
 constraintlayout = "2.2.1"
-navigationFragmentKtx = "2.9.8"
+#navigationFragmentKtx = "2.9.8"
+navigationFragmentKtxVersion = "2.5.3"
+navigationSafeArgsGradlePlugin = "2.7.1"
 navigationUiKtx = "2.9.8"
+navigationUiKtxVersion = "2.5.3"
 swiperefreshlayout = "1.2.0"
 volley = "1.2.1"
 recyclerview = "1.4.0"
+navigationFragmentKTX = "2.5.3"
+navigationUIKTX = "2.5.3"
+roomRuntime = "2.5.1"
+roomKTX = "2.5.1"
+roomCompiler = "2.5.1"
+lifecycleViewmodelKtx = "2.11.0"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-navigation-fragment-ktx-v253 = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtxVersion" }
+androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationSafeArgsGradlePlugin" }
+androidx-navigation-ui-ktx-v253 = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationUiKtxVersion" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -27,10 +40,17 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+#androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 volley = { module = "com.android.volley:volley", version.ref = "volley" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+navigation-fragment-ktx = { group ="androidx.navigation", name="navigation-fragment-ktx", version.ref="navigationFragmentKTX"}
+navigation-ui-ktx = { group ="androidx.navigation", name="navigation-ui-ktx", version.ref="navigationUIKTX" }
+room-runtime = { group="androidx.room", name="room-runtime", version.ref="roomRuntime" }
+room-ktx = { group="androidx.room", name="room-ktx", version.ref="roomKTX" }
+room-compiler = { group = "androidx.room", name="room-compiler", version.ref = "roomCompiler" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

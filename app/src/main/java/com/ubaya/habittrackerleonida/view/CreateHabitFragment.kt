@@ -57,7 +57,7 @@ class CreateHabitFragment : Fragment() {
             val selectedIcon = dropdown.text.toString()
 
             val habit = Habit(
-                id = System.currentTimeMillis().toString(),
+                //id = System.currentTimeMillis().toString(),
                 name = name,
                 description = desc,
                 goal = goal,
@@ -66,7 +66,7 @@ class CreateHabitFragment : Fragment() {
                 currentProgress = 0
             )
 
-            viewModel.addHabit(habit)
+            //viewModel.addHabit(habit)
 
             findNavController().popBackStack()
         }

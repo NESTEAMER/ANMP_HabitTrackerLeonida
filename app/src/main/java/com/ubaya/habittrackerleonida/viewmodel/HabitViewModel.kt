@@ -1,66 +1,30 @@
 package com.ubaya.habittrackerleonida.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ubaya.habittrackerleonida.model.Habit
 import com.ubaya.habittrackerleonida.model.FileHelper
+import com.ubaya.habittrackerleonida.model.HabitDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
-class HabitViewModel : ViewModel() {
+class HabitViewModel(application: Application) : AndroidViewModel(application), CoroutineScope {
+    private var job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = job + Dispatchers.IO
 
-    val habitListLD = MutableLiveData<ArrayList<Habit>>()
+    val loginStatusLD = MutableLiveData<Boolean>()
 
-    fun loadDummyData() {
-
-        if (FileHelper.habitList.isEmpty()) {
-            val list = arrayListOf(
-                Habit(
-                    "1",
-                    "Olahraga",
-                    "Latihan pagi",
-                    8,
-                    "times",
-                    "fitness",
-                    3
-                ),
-
-                Habit(
-                    "2",
-                    "Belajar",
-                    "Belajar ANMP",
-                    5,
-                    "hours",
-                    "book",
-                    3
-                ),
-
-                Habit(
-                    "3",
-                    "Minum Air",
-                    "Minum cukup",
-                    8,
-                    "glasses",
-                    "water",
-                    3
-                ),
-
-                Habit(
-                    "4",
-                    "Baca Buku",
-                    "Baca 10 halaman",
-                    10,
-                    "pages",
-                    "book",
-                    3
-                )
-            )
-            FileHelper.habitList.addAll(list)
+    fun checkLogin(user: String, pass: String) {
+        launch {
+            val db = HabitDatabase.getDatabase(getApplication())
+            val result = db.habitDao().login(user, pass)
+            loginStatusLD.postValue(result != null)
         }
-        habitListLD.value = FileHelper.habitList
-    }
-    fun addHabit(habit: Habit) {
-
-        FileHelper.habitList.add(habit)
-
-        habitListLD.value = FileHelper.habitList
     }
 }

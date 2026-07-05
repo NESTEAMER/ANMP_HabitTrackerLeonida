@@ -34,14 +34,14 @@ class DashboardFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[HabitViewModel::class.java]
 
-        viewModel.loadDummyData()
+        //viewModel.loadDummyData()
 
 
-        viewModel.habitListLD.observe(viewLifecycleOwner) {
-
-            val adapter = HabitAdapter(it)
-            recyclerView.adapter = adapter
-        }
+//        viewModel.habitListLD.observe(viewLifecycleOwner) {
+//
+//            val adapter = HabitAdapter(it)
+//            recyclerView.adapter = adapter
+//        }
 
         val fabAdd = view.findViewById<FloatingActionButton>(R.id.fabAdd)
 
