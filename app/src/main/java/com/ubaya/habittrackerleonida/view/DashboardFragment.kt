@@ -12,8 +12,9 @@ import com.ubaya.habittrackerleonida.R
 import com.ubaya.habittrackerleonida.viewmodel.HabitViewModel
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.ubaya.habittrackerleonida.model.Habit
 
-class DashboardFragment : Fragment() {
+class DashboardFragment : Fragment(), HabitListener {
 
     private lateinit var viewModel: HabitViewModel
 
@@ -33,6 +34,12 @@ class DashboardFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel = ViewModelProvider(requireActivity())[HabitViewModel::class.java]
+        viewModel.refresh()
+
+        viewModel.habitListLD.observe(viewLifecycleOwner) {
+            val adapter = HabitAdapter(it, this)
+            recyclerView.adapter = adapter
+        }
 
         //viewModel.loadDummyData()
 
@@ -50,5 +57,27 @@ class DashboardFragment : Fragment() {
                 R.id.actionDashboardCreateHabitFragment
             )
         }
+    }
+
+    override fun onPlusClick(habit: Habit) {
+        if (habit.currentProgress < habit.goal) {
+            habit.currentProgress++
+            viewModel.updateHabit(habit)
+        }
+    }
+
+    override fun onMinusClick(habit: Habit) {
+        if (habit.currentProgress > 0) {
+            habit.currentProgress--
+            viewModel.updateHabit(habit)
+        }
+    }
+
+    override fun onHabitClick(habit: Habit) {
+        val action =
+            DashboardFragmentDirections
+                .actionDashboardEditHabitFragment(habit.id)
+
+        findNavController().navigate(action)
     }
 }

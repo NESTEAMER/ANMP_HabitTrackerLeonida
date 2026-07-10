@@ -10,76 +10,74 @@ import com.ubaya.habittrackerleonida.model.Habit
 import android.widget.ProgressBar
 import android.widget.Button
 import android.widget.ImageView
+import androidx.databinding.DataBindingUtil
+import com.ubaya.habittrackerleonida.databinding.ItemHabitBinding
+import com.ubaya.habittrackerleonida.view.HabitListener
 
-class HabitAdapter(private val habitList: ArrayList<Habit>)
+class HabitAdapter(private val habitList: ArrayList<Habit>,
+    private val listener: HabitListener)
     : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
 
-    class HabitViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-
-        val txtName: TextView = itemView.findViewById(R.id.txtName)
-        val txtDesc: TextView = itemView.findViewById(R.id.textView2)
-        val txtProgress: TextView = itemView.findViewById(R.id.txtProgress)
-        val progressBar: ProgressBar = itemView.findViewById(R.id.progressHabit)
-        val txtStatus: TextView = itemView.findViewById(R.id.txtStatus)
-
-        val btnPlus: Button = itemView.findViewById(R.id.btnPlus)
-        val btnMinus: Button = itemView.findViewById(R.id.btnMinus)
-        val imgIcon: ImageView = itemView.findViewById(R.id.imgIcon)
-    }
+    class HabitViewHolder(val binding: ItemHabitBinding)
+        : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup,
         viewType: Int): HabitViewHolder {
 
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_habit, parent, false)
+        val binding: ItemHabitBinding =
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.item_habit,
+                parent,
+                false
+            )
 
-        return HabitViewHolder(view)
+        return HabitViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
 
         val habit = habitList[position]
+        holder.binding.habit = habit
+        holder.binding.listener = listener
 
-        holder.txtName.text = habit.name
-        holder.txtDesc.text = habit.description
+        holder.binding.txtProgress.text =  "${habit.currentProgress} / ${habit.goal} ${habit.unit}"
 
-        holder.txtProgress.text =  "${habit.currentProgress} / ${habit.goal} ${habit.unit}"
-
-        holder.progressBar.max = habit.goal
-        holder.progressBar.progress = habit.currentProgress
+        holder.binding.progressHabit.max = habit.goal
+        holder.binding.progressHabit.progress = habit.currentProgress
 
         //icon fix thingy
         val context = holder.itemView.context
         val resourceId = context.resources.getIdentifier(habit.iconName, "drawable", context.packageName)
-        holder.imgIcon.setImageResource(resourceId)
+        holder.binding.imgIcon.setImageResource(resourceId)
 
 
         //status
         if (habit.currentProgress >= habit.goal) {
-            holder.txtStatus.text = "Completed"
-            holder.btnPlus.isEnabled = false
+            holder.binding.txtStatus.text = "Completed"
+            holder.binding.btnPlus.isEnabled = false
         } else {
-            holder.txtStatus.text = "In Progress"
-            holder.btnPlus.isEnabled = true
+            holder.binding.txtStatus.text = "In Progress"
+            holder.binding.btnPlus.isEnabled = true
         }
 
 
         //btn plus
-        holder.btnPlus.setOnClickListener {
-            if (habit.currentProgress < habit.goal) {
-                habit.currentProgress++
-                notifyItemChanged(position)
-            }
-        }
+        //holder.binding.btnPlus.setOnClickListener {
+            //if (habit.currentProgress < habit.goal) {
+                //habit.currentProgress++
+                //notifyItemChanged(position)
+            //}
+        //}
 
 
         //btn min
-        holder.btnMinus.setOnClickListener {
-            if (habit.currentProgress > 0) {
-                habit.currentProgress--
-                notifyItemChanged(position)
-            }
-        }
+        //holder.binding.btnMinus.setOnClickListener {
+           // if (habit.currentProgress > 0) {
+                //habit.currentProgress--
+                //notifyItemChanged(position)
+            //}
+        //}
     }
 
     override fun getItemCount(): Int {

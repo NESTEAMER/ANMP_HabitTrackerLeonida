@@ -23,6 +23,9 @@
         <action
             android:id="@+id/actionDashboardCreateHabitFragment"
             app:destination="@id/createHabitFragment" />
+        <action
+            android:id="@+id/actionDashboardEditHabitFragment"
+            app:destination="@id/editHabitFragment" />
     </fragment>
     <fragment
         android:id="@+id/createHabitFragment"
@@ -32,5 +35,14 @@
         <action
             android:id="@+id/actionCreateHabitDashboardFragment"
             app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editHabitFragment"
+        android:name="com.ubaya.habittrackerleonida.view.EditHabitFragment"
+        android:label="fragment_edit_habit"
+        tools:layout="@layout/fragment_edit_habit" >
+        <argument
+            android:name="habitId"
+            app:argType="integer" />
     </fragment>
 </navigation>
