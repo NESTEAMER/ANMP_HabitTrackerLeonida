@@ -66,7 +66,7 @@ class CreateHabitFragment : Fragment() {
                 currentProgress = 0
             )
 
-            //viewModel.addHabit(habit)
+            viewModel.addHabit(habit)
 
             findNavController().popBackStack()
         }

@@ -50,4 +50,12 @@ class HabitViewModel(application: Application) : AndroidViewModel(application), 
             refresh()
         }
     }
+
+    fun addHabit(habit: Habit) {
+        launch {
+            val db = HabitDatabase.getDatabase(getApplication())
+            db.habitDao().insertHabit(habit)
+            refresh()
+        }
+    }
 }
